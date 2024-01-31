@@ -1,0 +1,17 @@
+Isaac Buckman (ibuckman)
+Tony An (tonyjan)
+
+files:
+penn-shell.c
+jobs.c
+jobs.h
+
+The team completed a shell that s upports redirections, pipes, non-interactive input and foreground/background processes.
+
+The main code is held in penn-shell.c. The pipes for all of the processes to communicate with eachother are found in pipe_fds. Each processes has its own pipe, that the command after it reads from. The first and last process soemtimes update the stdin/out if the user has inputed a redirection. For each of the commands, the program forks and runs the new process, with connection to the proper pipes.
+
+If a program is stopped or started in the background, it is added to a list of jobs, which is implemented as a linked list in jobs.c. Every time there is a new user input, the status of all these jobs is checked and any changes are told to the user.
+
+When waitpid notices a process has been terminated, it checks if all other processes in that process group have been termianted, and if they have removes that job. Using fg and bg, the user can bring processes into the foreground so that terminal commands will listen to it.
+
+Comments have been included to ease with grading and review.
